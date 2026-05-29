@@ -7,3 +7,8 @@ class DoctorDAOImpl:
     def create_doctor(self, doctor_data):
         doctor = Doctor.objects.create(**doctor_data)
         return doctor   
+    
+    def get_doctors_by_specialization(self, specialization_name):
+        return Doctor.objects.filter(
+            specialization__name=specialization_name
+        ) 

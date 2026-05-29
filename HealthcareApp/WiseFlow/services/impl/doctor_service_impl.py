@@ -9,3 +9,6 @@ class DoctorServiceImpl:
     
     def create_doctor(self, doctor_data):
         return self.doctor_dao.create_doctor(doctor_data)
+    
+    def get_doctors_by_specialization(self, specialization_name):
+        return self.doctor_dao.get_doctors_by_specialization(specialization_name)
