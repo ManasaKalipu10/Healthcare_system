@@ -21,6 +21,18 @@ class AIService:
 
         elif "brain" in symptoms:
             return "Neurology"
+        
+        elif "child" in symptoms:
+            return "Pediatrics"
+        
+        elif "kid" in symptoms:
+            return "Pediatrics"
+        
+        elif "kidney" in symptoms:
+            return "Nephrology"
+        
+        elif "gastro" in symptoms:
+            return "Gastroenterology"
 
         elif "fever" in symptoms:
             return "General Medicine"
