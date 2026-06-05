@@ -191,10 +191,10 @@ class PatientViewSet(ViewSet):
         patient_id = request.data.get("patient_id")
         patient = (
             self.patient_service
-            .delete_patient(patient_id, request.data)
+            .delete_patient(patient_id)
         )
 
-        self.patient_service.delete_patient(patient_id)
+        
         serializer = PatientSerializer(
             patient
         )

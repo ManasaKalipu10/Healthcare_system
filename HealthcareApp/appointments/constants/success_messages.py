@@ -79,6 +79,7 @@ class SuccessMessages:
     DOCTOR_SLOT_CHECKED =(
     "Doctor slot is checked"
 )
+    
     DOCTOR_DETAILS_FETCHED = (
     "all details of doctor fetched"
 )

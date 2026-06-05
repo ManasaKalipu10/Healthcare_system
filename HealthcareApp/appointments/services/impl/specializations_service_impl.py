@@ -49,17 +49,11 @@ class SpecializationServiceImpl(
             f"Specialization service: fetching specialization {specialization_id}"
         )
 
-        specialization = self.specialization_dao.get_specialization_details(
+        return self.specialization_dao.get_specialization_details(
             specialization_id
         )
 
-        if not specialization:
-            raise SpecializationNotFoundError(
-                f"Specialization with id {specialization_id} not found"
-            )
-
-        return specialization   
-    
+        
     def update_specialization(
         self,
         specialization_id,
@@ -75,10 +69,7 @@ class SpecializationServiceImpl(
             specialization_data
         )
 
-        if not specialization:
-            raise SpecializationNotFoundError(
-                f"Specialization with id {specialization_id} not found"
-            )
+        
 
         return specialization
     
@@ -91,12 +82,8 @@ class SpecializationServiceImpl(
             f"Specialization service: deleting specialization {specialization_id}"
         )
 
-        specialization = self.specialization_dao.delete_specialization(
+        return self.specialization_dao.delete_specialization(
             specialization_id
         )
 
-        if not specialization:
-            raise SpecializationNotFoundError(
-                f"Specialization with id {specialization_id} not found"
-            )
-        return specialization
+       

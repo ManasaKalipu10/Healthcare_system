@@ -156,7 +156,7 @@ class SpecializationViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
+            data=serializer.data,
             message=(
                 SuccessMessages
                 .SPECIALIZATION_CREATED
@@ -205,7 +205,7 @@ class SpecializationViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
+            data=serializer.data,
             message=(
                 SuccessMessages
                 .SPECIALIZATION_UPDATED
@@ -243,7 +243,7 @@ class SpecializationViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=None,
+            data=None,
             message=(
                 SuccessMessages
                 .SPECIALIZATION_DELETED
