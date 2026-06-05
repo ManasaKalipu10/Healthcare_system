@@ -66,8 +66,9 @@ class PatientViewSet(ViewSet):
         )
 
         return CustomResponse(  
-            result=serializer.data,
-            message=SuccessMessages.PATIENTS_FETCHED
+            data=serializer.data,
+            message=SuccessMessages.PATIENTS_FETCHED,
+            status_code=status.HTTP_200_OK
         )
     
     @swagger_auto_schema(
@@ -103,8 +104,9 @@ class PatientViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
-            message=SuccessMessages.PATIENT_DETAILS_FETCHED
+            data=serializer.data,
+            message=SuccessMessages.PATIENT_DETAILS_FETCHED,
+            status_code=status.HTTP_200_OK
         )   
     
     @swagger_auto_schema(
@@ -133,8 +135,9 @@ class PatientViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
-            message=SuccessMessages.PATIENT_CREATED
+            data=serializer.data,
+            message=SuccessMessages.PATIENT_CREATED,
+            status_code=status.HTTP_200_OK
         )
     
     @swagger_auto_schema(
@@ -142,7 +145,7 @@ class PatientViewSet(ViewSet):
         request_body=UpdatePatientApiSerializer
     )
     @action(detail=False, methods=['put'])
-    def update_patient_details(self, request):
+    def update_patient(self, request):
         """
         API endpoint to update patient details.
 
@@ -165,8 +168,9 @@ class PatientViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
-            message=SuccessMessages.PATIENT_UPDATED
+            data=serializer.data,
+            message=SuccessMessages.PATIENT_UPDATED,
+            status_code=status.HTTP_200_OK
         )
     
     @swagger_auto_schema(
@@ -185,9 +189,18 @@ class PatientViewSet(ViewSet):
         """
 
         patient_id = request.data.get("patient_id")
+        patient = (
+            self.patient_service
+            .delete_patient(patient_id, request.data)
+        )
 
         self.patient_service.delete_patient(patient_id)
+        serializer = PatientSerializer(
+            patient
+        )
 
         return CustomResponse(
-            message=SuccessMessages.PATIENT_DELETED
+            data=serializer.data,
+            message=SuccessMessages.PATIENT_DELETED,
+            status_code=status.HTTP_200_OK
         )

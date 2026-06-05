@@ -22,7 +22,7 @@ urlpatterns = [
 
     path(
         'get-doctor-details',
-        DoctorViewSet.as_view({'get': 'get_doctor_details'}),
+        DoctorViewSet.as_view({'post': 'get_doctor_details'}),
         name='get-doctor-details'
     ),
 
@@ -53,7 +53,7 @@ urlpatterns = [
 
     path(
         'get-patient-details',
-        PatientViewSet.as_view({'get': 'get_patient_details'}),
+        PatientViewSet.as_view({'post': 'get_patient_details'}),
         name='get-patient-details'
     ),
 
@@ -84,7 +84,7 @@ urlpatterns = [
 
     path(
         'get-appointment-details',
-        AppointmentViewSet.as_view({'get': 'get_appointment_details'}),
+        AppointmentViewSet.as_view({'post': 'get_appointment_details'}),
         name='get-appointment-details'
     ),
 
@@ -96,13 +96,13 @@ urlpatterns = [
 
     path(
         'cancel-appointment',
-        AppointmentViewSet.as_view({'delete': 'cancel_appointment'}),
+        AppointmentViewSet.as_view({'post': 'cancel_appointment'}),
         name='cancel-appointment'
     ),
 
     path(
         'check-doctor-slot',
-        AppointmentViewSet.as_view({'get': 'check_doctor_slot'}),
+        AppointmentViewSet.as_view({'post': 'check_doctor_slot'}),
         name='check-doctor-slot'
     ),
 
@@ -121,13 +121,13 @@ urlpatterns = [
 
     path(
         'get-specialization-details',
-        SpecializationViewSet.as_view({'get': 'get_specialization_details'}),
+        SpecializationViewSet.as_view({'post': 'get_specialization_details'}),
         name='get-specialization-details'
     ),
 
     path(
         'update-specialization',
-        SpecializationViewSet.as_view({'put': 'update_specialization_details'}),
+        SpecializationViewSet.as_view({'put': 'update_specialization'}),
         name='update-specialization'
     ),
 

@@ -36,7 +36,7 @@ class SuccessMessages:
         "Appointment cancelled successfully"
     )
 
-    APPOINTMENT_FETCHED = (
+    APPOINTMENT_DETAILS_FETCHED = (
         "Appointment details fetched successfully"
     )
 
@@ -60,7 +60,7 @@ class SuccessMessages:
     "Doctors fetched successfully"
 )
 
-    PATIENT_FETCHED = (
+    PATIENT_DETAILS_FETCHED = (
     "Patient details fetched successfully"
 )
 
@@ -74,4 +74,11 @@ class SuccessMessages:
 
     SPECIALIZATIONS_FETCHED = (
     "Specializations fetched successfully"
+)
+    
+    DOCTOR_SLOT_CHECKED =(
+    "Doctor slot is checked"
+)
+    DOCTOR_DETAILS_FETCHED = (
+    "all details of doctor fetched"
 )

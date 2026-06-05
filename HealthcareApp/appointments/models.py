@@ -82,7 +82,7 @@ class Appointment(models.Model):
         default='Pending'
     )
 
-    def clean(self):
+    def full_clean(self):
 
         # prevent previous date booking
         if self.appointment_date < date.today():

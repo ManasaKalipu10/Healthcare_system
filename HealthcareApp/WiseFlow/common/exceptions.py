@@ -117,14 +117,14 @@ def custom_exception_handler(
     if response is not None:
 
         return CustomResponse(
-            result=None,
-            message=str(exc.detail),
+            data=None,
+            message="Validation error",
             success=False,
             status_code=response.status_code
         )
 
     return CustomResponse(
-        result=None,
+        data=None,
         message=ErrorMessages.INTERNAL_SERVER_ERROR,
         success=False,
         status_code=status.HTTP_500_INTERNAL_SERVER_ERROR

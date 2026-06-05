@@ -8,9 +8,6 @@ from appointments.services.interface.specializations_service_interface import (
     SpecializationsServiceInterface
 )
 
-from WiseFlow.common.exceptions import (
-    SpecializationNotFoundError
-)
 
 logger = logging.getLogger(__name__)
 
@@ -19,7 +16,7 @@ class SpecializationServiceImpl(
     SpecializationsServiceInterface
 ):
 
-    def init__(self):
+    def __init__(self):
 
         self.specialization_dao = SpecializationsDAOImpl()  
 

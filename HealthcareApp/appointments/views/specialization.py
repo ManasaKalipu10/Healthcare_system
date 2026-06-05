@@ -68,11 +68,9 @@ class SpecializationViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
-            message=(
-                SuccessMessages
-                .SPECIALIZATIONS_FETCHED
-            )
+            data=serializer.data,
+            message=SuccessMessages.SPECIALIZATIONS_FETCHED
+            
         )
 
     @swagger_auto_schema(
@@ -115,7 +113,7 @@ class SpecializationViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
+            data=serializer.data,
             message=(
                 SuccessMessages
                 .SPECIALIZATION_FETCHED

@@ -24,8 +24,7 @@ class AppointmentSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Appointment
-        fields = '__all__'
-
+        fields = ["id", "doctor", "patient", "appointment_date", "appointment_time", "symptoms", "status"]
 # Specialization API serializers
 
 class CreateSpecializationApiSerializer(
@@ -69,8 +68,9 @@ class CreateDoctorApiSerializer(
 
     years_of_experience = serializers.IntegerField()
 
-    specialization = serializers.IntegerField()
-
+    specialization = serializers.PrimaryKeyRelatedField(
+        queryset=Specialization.objects.all()
+    )
 
 class UpdateDoctorApiSerializer(
     serializers.Serializer
@@ -177,18 +177,19 @@ class DeletePatientApiSerializer(
 # Appointment API Serializers
 
 
-class CreateAppointmentApiSerializer(
-    serializers.Serializer
-):
 
-    doctor = serializers.IntegerField()
+class CreateAppointmentApiSerializer(serializers.Serializer):
 
-    patient = serializers.IntegerField()
+    doctor = serializers.PrimaryKeyRelatedField(
+        queryset=Doctor.objects.all()
+    )
+
+    patient = serializers.PrimaryKeyRelatedField(
+        queryset=Patient.objects.all()
+    )
 
     appointment_date = serializers.DateField()
-
     appointment_time = serializers.TimeField()
-
     symptoms = serializers.CharField()
 
 

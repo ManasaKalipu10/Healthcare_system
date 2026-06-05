@@ -63,7 +63,7 @@ class DoctorServiceImpl(
             f"Doctor service: updating doctor {doctor_id}"
         )
 
-        return self.doctor_dao.update_doctor_details(
+        return self.doctor_dao.update_doctor(
             doctor_id,
             doctor_data
         )

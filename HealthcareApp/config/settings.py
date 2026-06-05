@@ -131,9 +131,8 @@ REST_FRAMEWORK = {
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.AllowAny',
     ],
-    'EXCEPTION_HANDLER': [
-        'WiseFlow.common.exceptions.custom_exception_handler'
-    ],
+    'EXCEPTION_HANDLER':
+        'WiseFlow.common.exceptions.custom_exception_handler',
 }
 
 LOGGING = {
@@ -149,3 +148,4 @@ LOGGING = {
         "level": "INFO",
     },
 }
+

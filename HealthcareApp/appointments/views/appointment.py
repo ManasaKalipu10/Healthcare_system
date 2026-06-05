@@ -4,6 +4,7 @@ import inspect
 from rest_framework import status
 from rest_framework.viewsets import ViewSet
 from rest_framework.decorators import action
+from rest_framework.exceptions import ValidationError
 
 from drf_yasg.utils import swagger_auto_schema
 from WiseFlow.common.custom_response import CustomResponse
@@ -58,17 +59,19 @@ class AppointmentViewSet(ViewSet):
             self.appointment_service
             .get_all_appointments()
         )
+        
 
         serializer = AppointmentSerializer(
             appointments,
             many=True
         )
-
+       
         return CustomResponse(
             data=serializer.data,
             message=SuccessMessages.APPOINTMENTS_FETCHED,
-            status=status.HTTP_200_OK
-        ).get_response()
+            status_code=status.HTTP_201_CREATED
+        )
+
     
     @swagger_auto_schema(
         operation_description="API to create an appointment",
@@ -94,7 +97,8 @@ class AppointmentViewSet(ViewSet):
             data=request.data
         )
 
-        serializer.is_valid(raise_exception=True)
+        if not serializer.is_valid():
+            raise ValidationError(serializer.errors)
 
         appointment_data = serializer.validated_data
 
@@ -102,16 +106,18 @@ class AppointmentViewSet(ViewSet):
             self.appointment_service
             .create_appointment(appointment_data)
         )
+        print("created appointment:", created_appointment)
 
         response_serializer = AppointmentSerializer(
             created_appointment
         )
+        print("SERIALIZED DATA:", response_serializer.data)
 
         return CustomResponse(
             data=response_serializer.data,
             message=SuccessMessages.APPOINTMENT_CREATED,
-            status=status.HTTP_201_CREATED
-        ).get_response()
+            status_code=status.HTTP_201_CREATED
+        )
     
     @swagger_auto_schema(
         operation_description="API to fetch appointment details",
@@ -146,16 +152,21 @@ class AppointmentViewSet(ViewSet):
             self.appointment_service
             .get_appointment_details(appointment_id)
         )
+        print("APPOINTMENT:", appointment_details)
 
         response_serializer = AppointmentSerializer(
             appointment_details
         )
-
-        return CustomResponse(
+        print("SERIALIZED:", response_serializer.data)
+        print ("before response")
+        response =  CustomResponse(
             data=response_serializer.data,
             message=SuccessMessages.APPOINTMENT_DETAILS_FETCHED,
-            status=status.HTTP_200_OK
-        ).get_response()
+            status_code=status.HTTP_200_OK
+        )
+        print ("after response")
+    
+        return response 
     
     @swagger_auto_schema(
         operation_description="API to update an appointment",
@@ -198,8 +209,8 @@ class AppointmentViewSet(ViewSet):
         return CustomResponse(
             data=response_serializer.data,
             message=SuccessMessages.APPOINTMENT_UPDATED,
-            status=status.HTTP_200_OK
-        ).get_response()
+            status_code=status.HTTP_200_OK
+        )
     
     @swagger_auto_schema(
         operation_description="API to cancel an appointment",
@@ -241,8 +252,8 @@ class AppointmentViewSet(ViewSet):
         return CustomResponse(
             data=response_serializer.data,
             message=SuccessMessages.APPOINTMENT_CANCELLED,
-            status=status.HTTP_200_OK
-        ).get_response()
+            status_code=status.HTTP_200_OK
+        )
     
     @swagger_auto_schema(
         operation_description="API to check doctor availability for a given time slot",
@@ -282,5 +293,5 @@ class AppointmentViewSet(ViewSet):
         return CustomResponse(
             data={"is_available": availability_status},
             message=SuccessMessages.DOCTOR_SLOT_CHECKED,
-            status=status.HTTP_200_OK
-        ).get_response()
+            status_code=status.HTTP_200_OK
+        )

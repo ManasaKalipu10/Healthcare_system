@@ -63,8 +63,9 @@ class DoctorViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
-            message=SuccessMessages.DOCTORS_FETCHED
+            data=serializer.data,
+            message=SuccessMessages.DOCTORS_FETCHED,
+            status_code=status.HTTP_200_OK
         )
 
     @swagger_auto_schema(
@@ -95,8 +96,9 @@ class DoctorViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
-            message=SuccessMessages.DOCTOR_FETCHED
+            data=serializer.data,
+            message=SuccessMessages.DOCTOR_DETAILS_FETCHED,
+            status_code=status.HTTP_200_OK
         )
 
     @swagger_auto_schema(
@@ -105,29 +107,37 @@ class DoctorViewSet(ViewSet):
     )
     @action(detail=False, methods=['post'])
     def create_doctor(self, request):
-        """
-        API endpoint to create doctor.
 
-        THis method creates a new doctor in the system based on the provided data.
-        It uses the DoctorServiceImpl to save the data to the database and 
-        returns the created doctor details in a structured format using the DoctorSerializer.
-        The response includes a success message indicating that the doctor was created successfully.
+        print("STEP 1")
 
-        """
-
-        doctor = (
-            self.doctor_service
-            .create_doctor(request.data)
+        serializer = CreateDoctorApiSerializer(
+            data=request.data
         )
 
-        serializer = DoctorSerializer(
+        print("STEP 2")
+
+        serializer.is_valid(raise_exception=True)
+
+        print("STEP 3", serializer.validated_data)
+
+        doctor = self.doctor_service.create_doctor(
+            serializer.validated_data
+        )
+
+        print("STEP 4", doctor)
+
+        response_serializer = DoctorSerializer(
             doctor
         )
 
+        print("STEP 5", response_serializer.data)
+
         return CustomResponse(
-            result=serializer.data,
-            message=SuccessMessages.DOCTOR_CREATED
+            data=response_serializer.data,
+            message=SuccessMessages.DOCTOR_CREATED,
+            status_code=status.HTTP_201_CREATED
         )
+
 
     @swagger_auto_schema(
         operation_description="API to update doctor",
@@ -156,8 +166,9 @@ class DoctorViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=serializer.data,
-            message=SuccessMessages.DOCTOR_UPDATED
+            data=serializer.data,
+            message=SuccessMessages.DOCTOR_UPDATED,
+            status_code=status.HTTP_200_OK
         )
 
     @swagger_auto_schema(
@@ -184,6 +195,7 @@ class DoctorViewSet(ViewSet):
         )
 
         return CustomResponse(
-            result=None,
-            message=SuccessMessages.DOCTOR_DELETED
+            data=None,
+            message=SuccessMessages.DOCTOR_DELETED,
+            status_code=status.HTTP_200_OK
         )
